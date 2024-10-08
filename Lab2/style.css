@@ -1,0 +1,17 @@
+#barChart {
+  width: 100%;   
+  height: 500px;   
+  max-width: 100%; 
+}
+
+#histogramChart {
+  width: 100%;   
+  height: 700px;   
+  max-width: 100%; 
+}
+
+#scatterPlot {
+  width: 100%;    
+  height: 700px;  
+  max-width: 100%; 
+}
