@@ -140,16 +140,16 @@ async function generateScatterPlot() {
     } else {
         x_values = data.map(d => d[x_axis]); 
         topXCategories = getTopCategories(x_values); 
-        data = data.filter(d => topXCategories.includes(d[x_axis]));
-        x_values = data.map(d => d[x_axis]); 
+        data_temp = data.filter(d => topXCategories.includes(d[x_axis]));
+        x_values = data_temp.map(d => d[x_axis]); 
     }
 
     if (y_type === "numerical") {
         y_values = data.map(d => +d[y_axis]);
         y_values = data.map(d => d[y_axis]); 
         topYCategories = getTopCategories(y_values); 
-        data = data.filter(d => topYCategories.includes(d[y_axis]));
-        y_values = data.map(d => d[y_axis]);
+        data_temp = data.filter(d => topYCategories.includes(d[y_axis]));
+        y_values = data_temp.map(d => d[y_axis]);
     }
 
     // Template of scatter plot is from https://d3-graph-gallery.com/graph/scatter_basic.html
