@@ -89,7 +89,7 @@ const Biplot = () => {
     svg.append('text')
       .attr('text-anchor', 'middle')
       .attr('transform', `translate(${-(margin.left / 2)}, ${(height - margin.top - margin.bottom) / 2}) rotate(-90)`)
-      .text('PC 1 (23.72%)')
+      .text('PC 2 (23.72%)')
       .style('font-size', '14px')
       .style('fill', 'black');
   };
