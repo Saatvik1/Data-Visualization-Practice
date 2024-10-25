@@ -6,10 +6,10 @@ const ScatterPlotMatrix = () => {
 
     const fetchData = async () => {
         try {
-          const response = await fetch('../data/scatter_df.json');
-          const data = await response.json();
+          let response = await fetch('../data/scatter_df.json');
+          let data = await response.json();
           
-          const correlationArray = data.map(item =>
+          let correlationArray = data.map(item =>
             Object.values(item)
           );
 
@@ -17,7 +17,7 @@ const ScatterPlotMatrix = () => {
   
           drawScatterPlotMatrix(correlationArray);
         } catch (error) {
-          console.error('Error fetching the data:', error);
+          console.error(error);
         }
     }
 
@@ -26,13 +26,11 @@ const ScatterPlotMatrix = () => {
   }, []);
 
   const drawScatterPlotMatrix = (data) => {
-    // List of variables
-    const variables = Object.keys(data[0]).filter(key => key !== 'categoricalVariable'); // Exclude categorical variable
-    const size = 200; // Size of each scatter plot
+    const variables = Object.keys(data[0]);
+    const size = 200; 
     const padding = 70;
     const n = variables.length;
 
-    // Set up the SVG canvas
     const svg = d3.select('#scatterplot-matrix')
       .append('svg')
       .attr('width', size * n + padding)
@@ -40,7 +38,6 @@ const ScatterPlotMatrix = () => {
       .append('g')
       .attr('transform', `translate(${padding},${padding})`);
 
-    // Create scales for each variable
     const scales = {};
     variables.forEach(variable => {
       scales[variable] = d3.scaleLinear()
@@ -48,26 +45,21 @@ const ScatterPlotMatrix = () => {
         .range([padding / 2, size - padding / 2]);
     });
 
-    // Color scale for categorical variable
     const color = d3.scaleOrdinal(d3.schemeCategory10);
 
-    // Loop through all combinations of variables for creating scatter plots
     variables.forEach((xVar, i) => {
       variables.forEach((yVar, j) => {
         const cell = svg.append('g')
           .attr('transform', `translate(${i * size},${j * size})`);
 
-        // Add X-axis
         cell.append('g')
           .attr('transform', `translate(0,${size - padding / 2})`)
           .call(d3.axisBottom(scales[xVar]).ticks(3));
 
-        // Add Y-axis
         cell.append('g')
           .attr('transform', `translate(${padding / 2},0)`)
           .call(d3.axisLeft(scales[yVar]).ticks(3));
 
-        // Add scatter points
         cell.selectAll('circle')
           .data(data)
           .enter()
@@ -75,12 +67,11 @@ const ScatterPlotMatrix = () => {
           .attr('cx', d => scales[xVar](d[xVar]))
           .attr('cy', d => scales[yVar](d[yVar]))
           .attr('r', 3)
-          .style('fill', d => color(d.categoricalVariable)) // Color by categorical variable
+          .style('fill', d => color(d.categoricalVariable))
           .style('opacity', 0.7);
       });
     });
 
-    // Add variable names to the diagonal (row = column)
     svg.selectAll('.label')
       .data(variables)
       .enter()

@@ -6,18 +6,25 @@ const CorrelationMatrix = () => {
 
     const fetchData = async () => {
         try {
-          const response = await fetch('../data/corr_df.json');
-          const data = await response.json();
+          let response = await fetch('../data/corr_df.json');
+          let data = await response.json();
+
+          console.log(data)
           
-          const correlationArray = data.map(item =>
+          let correlationArray = data.map(item =>
             Object.values(item)
           );
 
+          let correlationFeatureArray = Object.keys(data[0]); 
+
+          console.log(correlationFeatureArray)
+
           d3.select('#correlation-matrix').selectAll('*').remove();
   
-          drawCorrelationMatrix(correlationArray);
+          drawCorrelationMatrix(correlationArray, correlationFeatureArray);
+          
         } catch (error) {
-          console.error('Error fetching the data:', error);
+          console.error(error);
         }
     }
 
@@ -25,10 +32,11 @@ const CorrelationMatrix = () => {
   
   }, []);
 
-  const drawCorrelationMatrix = (data) => {
-    const margin = { top: 50, right: 30, bottom: 40, left: 100 };
-    const width = 800 - margin.left - margin.right;
-    const height = 800 - margin.top - margin.bottom;
+  const drawCorrelationMatrix = (data, features) => {
+    console.log(data)
+    const margin = { top: 60, right: 40, bottom: 50, left: 120 };
+    const width = 1000 - margin.left - margin.right;
+    const height = 1000 - margin.top - margin.bottom;
 
     const svg = d3.select('#correlation-matrix')
       .append('svg')
@@ -38,8 +46,9 @@ const CorrelationMatrix = () => {
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
     const colorScale = d3.scaleLinear()
-    .domain([-1, 0, 1]) 
-    .range(['red', 'white', 'blue']);
+      .domain([-1, 0, 1]) 
+      .range(['red', 'white', 'blue']);
+    
     const cellSize = width / data.length;
 
     svg.selectAll()
@@ -56,39 +65,38 @@ const CorrelationMatrix = () => {
       .style('fill', d => colorScale(d.value))
       .style('stroke', 'white');
 
-    const labels = data.map((_, i) => `Feature ${i + 1}`); 
-
-    svg.selectAll('.row-label')
-      .data(labels)
-      .enter()
-      .append('text')
-      .attr('x', -5)
-      .attr('y', (d, i) => (i + 0.5) * cellSize)
-      .attr('dy', '.35em')
-      .text(d => d)
-      .style('text-anchor', 'end');
-
     svg.selectAll('.col-label')
-      .data(labels)
+      .data(features)
       .enter()
       .append('text')
       .attr('x', (d, i) => (i + 0.5) * cellSize)
-      .attr('y', -5)
+      .attr('y', -10)
       .attr('dy', '.35em')
       .text(d => d)
-      .style('text-anchor', 'middle');
+      .style('text-anchor', 'middle')
+      .style('font-size', '12px');
 
-      svg.selectAll('.cell-text')
-        .data(data.flat()) 
-        .enter()
-        .append('text')
-        .attr('x', (d, i) => (i % data.length + 0.5) * cellSize) 
-        .attr('y', (d, i) => (Math.floor(i / data.length) + 0.5) * cellSize) 
-        .attr('dy', '.35em') 
-        .style('text-anchor', 'middle') 
-        .style('fill', 'black') 
-        .text(d => d.toFixed(2));
+    svg.selectAll('.row-label')
+      .data(features)
+      .enter()
+      .append('text')
+      .attr('x', -10)
+      .attr('y', (d, i) => (i + 0.5) * cellSize)
+      .attr('dy', '.35em')
+      .text(d => d)
+      .style('text-anchor', 'end')
+      .style('font-size', '12px');
 
+    svg.selectAll('.cell-text')
+      .data(data.flat()) 
+      .enter()
+      .append('text')
+      .attr('x', (d, i) => (i % data.length + 0.5) * cellSize) 
+      .attr('y', (d, i) => (Math.floor(i / data.length) + 0.5) * cellSize) 
+      .attr('dy', '.35em') 
+      .style('text-anchor', 'middle') 
+      .style('fill', 'black') 
+      .text(d => d.toFixed(2));
   };
 
   return (
