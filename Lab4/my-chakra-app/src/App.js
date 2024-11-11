@@ -9,6 +9,7 @@ import Biplot from './components/Biplot';
 import MDSData from './components/MDSData';
 import MDSAttributes from './components/MDSAttributes';
 import ChartSelector from './components/ChartSelector';
+import InteractiveVisualizations from './components/InteractiveVisualizations';
 
 const { Link } = Anchor;
 
@@ -24,6 +25,7 @@ const App = () => (
         <Link href="/mds-data" title="MDS (Data)" />
         <Link href="/mds-attributes" title="MDS (Attributes)" />
         <Link href="/bar-hist-chart" title="Bar/Histogram Chart" />
+        <Link href="/interactive-vis" title="Multi Vis" />
       </Anchor>
 
       <Routes>
@@ -35,6 +37,7 @@ const App = () => (
         <Route path="/mds-data" element={<MDSData />} />
         <Route path="/mds-attributes" element={<MDSAttributes />} />
         <Route path="/bar-hist-chart" element={<ChartSelector />} />
+        <Route path="/interactive-vis" element={<InteractiveVisualizations />} />
       </Routes>
     </div>
   </Router>
