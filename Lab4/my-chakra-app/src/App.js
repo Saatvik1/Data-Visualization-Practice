@@ -10,6 +10,7 @@ import MDSData from './components/MDSData';
 import MDSAttributes from './components/MDSAttributes';
 import ChartSelector from './components/ChartSelector';
 import InteractiveVisualizations from './components/InteractiveVisualizations';
+import ClusterVisualizations from './components/ClusterVisualizations';
 
 const { Link } = Anchor;
 
@@ -25,7 +26,8 @@ const App = () => (
         <Link href="/mds-data" title="MDS (Data)" />
         <Link href="/mds-attributes" title="MDS (Attributes)" />
         <Link href="/bar-hist-chart" title="Bar/Histogram Chart" />
-        <Link href="/interactive-vis" title="Multi Vis" />
+        <Link href="/interactive-vis-bar" title="Multi Vis Bar" />
+        <Link href="/interactive-vis-cluster" title="Multi Vis Cluster" />
       </Anchor>
 
       <Routes>
@@ -37,7 +39,9 @@ const App = () => (
         <Route path="/mds-data" element={<MDSData />} />
         <Route path="/mds-attributes" element={<MDSAttributes />} />
         <Route path="/bar-hist-chart" element={<ChartSelector />} />
-        <Route path="/interactive-vis" element={<InteractiveVisualizations />} />
+        <Route path="/interactive-vis-bar" element={<InteractiveVisualizations />} />
+        <Route path="/interactive-vis-cluster" element={<ClusterVisualizations />} />
+
       </Routes>
     </div>
   </Router>
