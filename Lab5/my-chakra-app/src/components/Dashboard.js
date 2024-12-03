@@ -409,7 +409,7 @@ const Dashboard = () => {
             body: { padding: '4px' }
           }}
         >
-          <div id="barchart" style={{ height: 350, overflow: 'auto' }} />
+          <div id="barchart" style={{ height: 350, overflow: 'None' }} />
         </Card>
 
         <Card 
@@ -428,7 +428,7 @@ const Dashboard = () => {
             body: { padding: '8px' }
           }}
         >
-          <div id="biplot" style={{ height: 300, overflow: 'auto' }} />
+          <div id="biplot" style={{ height: 300, overflow: 'None' }} />
         </Card>
 
         <Card 
@@ -447,7 +447,7 @@ const Dashboard = () => {
             body: { padding: '2px' }
           }}
         >
-          <div id="parallel-coordinates" style={{ height: 300, overflow: 'auto' }} />
+          <div id="parallel-coordinates" style={{ height: 300, overflow: 'None' }} />
         </Card>
         <Card 
           title="Radar Chart" 
@@ -465,7 +465,7 @@ const Dashboard = () => {
             body: { padding: '4px' }
           }}
         >
-          <div id="radar-chart" style={{ height: 300, overflow: 'auto' }} />
+          <div id="radar-chart" style={{ height: 300, overflow: 'None' }} />
         </Card>
 
       </div>
