@@ -1,7 +1,7 @@
 # Top Spofity Songs 2023 Exploration
 
 ## Background Overview
-This dataset was taken off of ![Kaggle](https://www.kaggle.com/datasets/nelgiriyewithana/top-spotify-songs-2023).
+This dataset was taken off of [Kaggle](https://www.kaggle.com/datasets/nelgiriyewithana/top-spotify-songs-2023).
 I wanted to explore and find out what makes a song a good song, and what makes a song a top chart song.
 
 ## Data Structure Overview
